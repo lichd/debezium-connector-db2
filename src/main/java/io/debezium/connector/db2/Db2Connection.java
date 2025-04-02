@@ -550,7 +550,7 @@ public class Db2Connection extends JdbcConnection {
 
         final Lsn storedLsn = ((Db2OffsetContext) offset).getChangePosition().getCommitLsn();
 
-        String oldestFirstChangeQuery = String.format("SELECT min(RESTART_SEQ) FROM %s.IBMSNAP_CAPMON;", connectorConfig.getCdcControlSchema());
+        String oldestFirstChangeQuery = String.format("SELECT min(RESTART_SEQ) FROM %s.IBMSNAP_CAPMON", connectorConfig.getCdcControlSchema());
 
         try {
             final String oldestScn = singleOptionalValue(oldestFirstChangeQuery, rs -> rs.getString(1));
