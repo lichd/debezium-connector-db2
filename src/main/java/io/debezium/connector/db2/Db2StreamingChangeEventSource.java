@@ -215,7 +215,7 @@ public class Db2StreamingChangeEventSource implements StreamingChangeEventSource
                                 continue;
                             }
                             if (tableWithSmallestLsn.getChangeTable().getStopLsn().isAvailable() &&
-                                    tableWithSmallestLsn.getChangeTable().getStopLsn().compareTo(tableWithSmallestLsn.getChangePosition().getCommitLsn()) <= 0) {
+                                    tableWithSmallestLsn.getChangeTable().getStopLsn().compareTo(tableWithSmallestLsn.getChangePosition().getCommitLsn()) < 0) {
                                 LOGGER.debug("Skipping table change {} as its stop LSN is smaller than the last recorded LSN {}", tableWithSmallestLsn,
                                         tableWithSmallestLsn.getChangePosition());
                                 tableWithSmallestLsn.next();
@@ -242,7 +242,8 @@ public class Db2StreamingChangeEventSource implements StreamingChangeEventSource
                                 }
                                 eventCount = 2;
                             }
-                            final Object[] dataNext = (operation == Db2ChangeRecordEmitter.OP_UPDATE_BEFORE) ? tableWithSmallestLsn.getData() : null;
+                            final Object[] dataNext = (operation == Db2ChangeRecordEmitter.OP_UPDATE_BEFORE) ? tableWithSmallestLsn.getData()
+                                    : (operation == Db2ChangeRecordEmitter.OP_UPDATE) ? data : null;
 
                             offsetContext.setChangePosition(tableWithSmallestLsn.getChangePosition(), eventCount);
                             offsetContext.event(tableWithSmallestLsn.getChangeTable().getSourceTableId(),

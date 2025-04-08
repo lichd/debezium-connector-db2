@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import io.debezium.relational.HistorizedRelationalDatabaseSchema;
 import io.debezium.relational.Table;
 import io.debezium.relational.TableId;
-import io.debezium.relational.TableSchemaBuilder;
 import io.debezium.relational.ddl.DdlParser;
 import io.debezium.relational.history.TableChanges;
 import io.debezium.schema.SchemaChangeEvent;
@@ -32,7 +31,7 @@ public class Db2DatabaseSchema extends HistorizedRelationalDatabaseSchema {
                              TopicNamingStrategy<TableId> topicNamingStrategy,
                              Db2Connection connection) {
         super(connectorConfig, topicNamingStrategy, connectorConfig.getTableFilters().dataCollectionFilter(), connectorConfig.getColumnFilter(),
-                new TableSchemaBuilder(
+                new Db2TableSchemaBuilder(
                         valueConverters,
                         new Db2DefaultValueConverter(valueConverters, connection),
                         schemaNameAdjuster,

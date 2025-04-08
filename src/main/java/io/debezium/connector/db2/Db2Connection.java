@@ -271,8 +271,8 @@ public class Db2Connection extends JdbcConnection {
                                 new TableId("", rs.getString(1), rs.getString(2)),
                                 rs.getString(4),
                                 rs.getInt(9),
-                                Lsn.valueOf(rs.getBytes(5)),
                                 Lsn.valueOf(rs.getBytes(6)),
+                                Lsn.valueOf(rs.getBytes(5)),
                                 connectorConfig.getCdcChangeTablesSchema()
 
                         ));

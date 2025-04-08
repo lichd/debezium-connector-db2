@@ -30,6 +30,7 @@ public class LuwPlatform implements Db2PlatformAdapter {
                 + "WHEN IBMSNAP_OPERATION = 'I' AND (LAG(cdc.IBMSNAP_OPERATION,1,'X') OVER (PARTITION BY cdc.IBMSNAP_COMMITSEQ ORDER BY cdc.IBMSNAP_INTENTSEQ)) ='D' THEN 4 "
                 + "WHEN IBMSNAP_OPERATION = 'D' THEN 1 "
                 + "WHEN IBMSNAP_OPERATION = 'I' THEN 2 "
+                + "WHEN IBMSNAP_OPERATION = 'U' THEN 5 "
                 + "END "
                 + "OPCODE,"
                 + "cdc.* "
