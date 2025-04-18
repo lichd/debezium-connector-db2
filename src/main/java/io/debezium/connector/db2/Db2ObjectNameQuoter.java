@@ -24,7 +24,7 @@ public class Db2ObjectNameQuoter {
     public static String quoteNameIfNecessary(String name) {
         String quotedNameIfNecessary = name;
         for (Character c : name.toCharArray()) {
-            if (Character.isLowerCase(c)) {
+            if (Character.isLowerCase(c) || Character.isDigit(c)) {
                 quotedNameIfNecessary = "\"" + quotedNameIfNecessary + "\"";
                 break;
             }
